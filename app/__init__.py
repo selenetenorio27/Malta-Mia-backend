@@ -17,6 +17,11 @@ def create_app():
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get(
         "SQLALCHEMY_DATABASE_URI")
     
+    from app.models.cerveza import Cerveza
+    from app.models.cliente import Cliente
+    from app.models.encuesta import Encuesta
+    from app.models.favoritos import Favoritos
+    
     db.init_app(app)
     migrate.init_app(app, db)
 
