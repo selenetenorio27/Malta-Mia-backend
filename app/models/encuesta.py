@@ -1,4 +1,5 @@
 from app import db
+from app import db
 
 class Encuesta(db.Model):
     encuesta_id = db.Column(db.Integer, primary_key=True)
@@ -8,8 +9,14 @@ class Encuesta(db.Model):
     pref_sabor = db.Column(db.String)
     pref_alcohol = db.Column(db.Integer)
     ingrediente_adic = db.Column(db.String)
-
+    completed_at = db.Column(db.DateTime, default=None)
+    cerveza_recomendada_id = db.Column(db.Integer, db.ForeignKey('cerveza.cerveza_id'))
     cliente_id = db.Column(db.Integer, db.ForeignKey('cliente.cliente_id'))
+
+    cliente = db.relationship('Cliente', back_populates='encuestas')
+    cerveza_recomendada = db.relationship('Cerveza')
+
+#falta fecha 
 
     def to_dict(self):
         encuesta_dict = {

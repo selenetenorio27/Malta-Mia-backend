@@ -10,6 +10,10 @@ class Cerveza(db.Model):
     color = db.Column(db.String)
     sabor = db.Column(db.String)
 
+    encuesta = db.relationship('Encuesta', back_populates='cerveza')
+    favoritos = db.relationship('Favoritos',back_populates='cliente')
+    clientes_recomendados = db.relationship('Cliente', back_populates='cerveza_recomendada')
+
     def to_dict(self):
         cerveza_dict = {
             "cerveza_id" : self.cerveza_id,

@@ -25,5 +25,8 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db)
 
+    from .routes.cerveza_routes import cervezas_bp
+    app.register_blueprint(cervezas_bp)
+
     CORS(app)
     return app
