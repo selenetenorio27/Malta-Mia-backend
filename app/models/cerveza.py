@@ -4,15 +4,16 @@ class Cerveza(db.Model):
     cerveza_id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String)
     marca = db.Column(db.String)
-    porcentaje_alcohol = db.Column(db.Integer)
+    porcentaje_alcohol = db.Column(db.Float)
     estilo = db.Column(db.String)
     ibus = db.Column(db.Integer)
     color = db.Column(db.String)
     sabor = db.Column(db.String)
+    ingrediente_adicional = db.Column(db.String)
 
-    encuesta = db.relationship('Encuesta', back_populates='cerveza')
-    favoritos = db.relationship('Favoritos',back_populates='cliente')
-    clientes_recomendados = db.relationship('Cliente', back_populates='cerveza_recomendada')
+    # encuesta = db.relationship('Encuesta', back_populates='cerveza')
+    favoritos = db.relationship('Favoritos',back_populates='cerveza')
+    # clientes_recomendados = db.relationship('Cliente', back_populates='cerveza_recomendada')
 
     def to_dict(self):
         cerveza_dict = {
@@ -24,6 +25,7 @@ class Cerveza(db.Model):
             "ibus" : self.ibus,
             "color" : self.color,
             "sabor" : self.sabor,
+            "ingrediente_adicional": self.ingrediente_adicional
         }
 
         return cerveza_dict
@@ -36,5 +38,19 @@ class Cerveza(db.Model):
                             estilo=cerveza_data["estilo"],
                             ibus=cerveza_data["ibus"],
                             color=cerveza_data["color"],
-                            sabor=cerveza_data["sabor"])
+                            sabor=cerveza_data["sabor"],
+                            ingrediente_adicional=cerveza_data["ingrediente_adicional"])
         return new_cerveza
+    
+
+
+def agregar_cervezas_iniciales():
+    cervezas = [
+        {"nombre":"Dark Lager", "marca":"Principia","porcentaje_alcohol":4.0, "estilo":"lager", "ibus":22, "color":"obscura", "sabor":"Caramelo y tostado", "ingrediente_adicional":"cafe"},
+        {"nombre":"American Wheat Ale", "marca":"Principia","porcentaje_alcohol":4.3, "estilo":"wheat ale", "ibus":18, "color":"clara", "sabor":"Ligero y refrescante", "ingrediente_adicional":"ninguno"}
+    ]
+    for cerveza_data in cervezas:
+        cerveza = Cerveza(**cerveza_data)
+        db.session.add(cerveza)
+    db.session.commit()
+    

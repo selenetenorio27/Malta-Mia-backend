@@ -1,4 +1,4 @@
-from app import db
+from sqlalchemy import DateTime
 from app import db
 
 class Encuesta(db.Model):
@@ -10,11 +10,12 @@ class Encuesta(db.Model):
     pref_alcohol = db.Column(db.Integer)
     ingrediente_adic = db.Column(db.String)
     completed_at = db.Column(db.DateTime, default=None)
-    cerveza_recomendada_id = db.Column(db.Integer, db.ForeignKey('cerveza.cerveza_id'))
+
+    # cerveza_id = db.Column(db.Integer, db.ForeignKey('cerveza.cerveza_id'))
     cliente_id = db.Column(db.Integer, db.ForeignKey('cliente.cliente_id'))
 
     cliente = db.relationship('Cliente', back_populates='encuestas')
-    cerveza_recomendada = db.relationship('Cerveza')
+    # cerveza = db.relationship('Cerveza', back_populates='encuesta')
 
 #falta fecha 
 
@@ -27,6 +28,7 @@ class Encuesta(db.Model):
             "pref_sabor" : self.pref_sabor,
             "pref_alcohol" : self.pref_alcohol,
             "ingrediente_adic" : self.ingrediente_adic,
+            "completed_at" : self.completed_at
         }
 
         return encuesta_dict
@@ -38,5 +40,6 @@ class Encuesta(db.Model):
                                 gusta_amarga=encuesta_data["gusta_amarga"],
                                 pref_sabor=encuesta_data["pref_sabor"],
                                 pref_alcohol=encuesta_data["pref_alcohol"],
+                                completed_at=encuesta_data["completed_at"],
                                 ingrediente_adic=encuesta_data["ingrediente_adic"])
         return new_encuesta

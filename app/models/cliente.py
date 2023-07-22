@@ -7,7 +7,7 @@ class Cliente(db.Model):
     password = db.Column(db.String)
 
     encuestas = db.relationship('Encuesta', back_populates='cliente')
-    cerveza_recomendada = db.relationship('Cerveza')
+    favoritos = db.relationship('Favoritos', back_populates='cliente')
 
     def to_dict(self):
         cliente_dict = {
