@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 64674f3014de
+Revision ID: 619cfb3bc21c
 Revises: 
-Create Date: 2023-07-14 17:24:02.865322
+Create Date: 2023-07-21 22:00:41.111118
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '64674f3014de'
+revision = '619cfb3bc21c'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -22,11 +22,12 @@ def upgrade():
     sa.Column('cerveza_id', sa.Integer(), nullable=False),
     sa.Column('nombre', sa.String(), nullable=True),
     sa.Column('marca', sa.String(), nullable=True),
-    sa.Column('porcentaje_alcohol', sa.Integer(), nullable=True),
+    sa.Column('porcentaje_alcohol', sa.Float(), nullable=True),
     sa.Column('estilo', sa.String(), nullable=True),
     sa.Column('ibus', sa.Integer(), nullable=True),
     sa.Column('color', sa.String(), nullable=True),
     sa.Column('sabor', sa.String(), nullable=True),
+    sa.Column('ingrediente_adicional', sa.String(), nullable=True),
     sa.PrimaryKeyConstraint('cerveza_id')
     )
     op.create_table('cliente',
@@ -44,8 +45,9 @@ def upgrade():
     sa.Column('pref_sabor', sa.String(), nullable=True),
     sa.Column('pref_alcohol', sa.Integer(), nullable=True),
     sa.Column('ingrediente_adic', sa.String(), nullable=True),
-    sa.Column('cerveza_recomendada_id', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['cerveza_recomendada_id'], ['cerveza.cerveza_id'], ),
+    sa.Column('completed_at', sa.DateTime(), nullable=True),
+    sa.Column('cliente_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['cliente_id'], ['cliente.cliente_id'], ),
     sa.PrimaryKeyConstraint('encuesta_id')
     )
     op.create_table('favoritos',
