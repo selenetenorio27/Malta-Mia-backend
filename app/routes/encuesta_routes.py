@@ -26,3 +26,4 @@ def complete_encuesta():
     db.session.add(new_encuesta)
     db.session.commit()
     return jsonify({"message":"Encuesta completada con exito"}), 201
+
