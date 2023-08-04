@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify, make_response, abort
 from app import db
 from app.models.encuesta import Encuesta
+from app.models.cliente import Cliente
 
 encuesta_bp = Blueprint("encuesta_bp", __name__, url_prefix="/encuesta")
 
@@ -26,4 +27,16 @@ def complete_encuesta():
     db.session.add(new_encuesta)
     db.session.commit()
     return jsonify({"message":"Encuesta completada con exito"}), 201
+
+
+
+@encuesta_bp.route("/<cliente_id>/<encuesta_id>", methods=["GET"])
+def get_encuesta(cliente_id, encuesta_id):
+    cliente = validate_model(Cliente, cliente_id)
+    encuesta = Encuesta.query.filter_by(cliente_id=cliente_id, encuesta_id=encuesta_id).first()
+    
+    if not encuesta:
+        abort(make_response({"message": "Encuesta not found"}, 404))
+    
+    return jsonify(encuesta.to_dict()), 200
 
