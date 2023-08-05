@@ -1,5 +1,6 @@
 from app import db
 
+
 class Cerveza(db.Model):
     cerveza_id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String)
@@ -11,8 +12,9 @@ class Cerveza(db.Model):
     sabor = db.Column(db.String)
     ingrediente_adicional = db.Column(db.String)
 
-    favoritos = db.relationship('Favoritos',back_populates='cerveza')
-    sabores = db.relationship('Sabor', secondary='cerveza_sabor', back_populates='cervezas')
+
+    favoritos = db.relationship('Favoritos', back_populates='cerveza')
+
 
     def to_dict(self):
         cerveza_dict = {
