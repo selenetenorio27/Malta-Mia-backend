@@ -1,70 +1,316 @@
 from app import db
 from app.models.cerveza import Cerveza
+from app.models.sabor import Sabor
 
 def agregar_cervezas():
-    cerveza1 = Cerveza(nombre='Dark Lager', marca='Principia',porcentaje_alcohol=4.0, estilo='lager', ibus=22, color='obscura', sabor=['caramel','toasted'], ingrediente_adicional='coffee')
-    cerveza2 = Cerveza(nombre='American Wheat Ale', marca='Principia',porcentaje_alcohol=4.3, estilo='wheat_ale', ibus=18, color='clara', sabor='light_and_refreshing', ingrediente_adicional='none')
-    cerveza3 = Cerveza(nombre='Extrasolar', marca='Principia',porcentaje_alcohol=6.5, estilo='ipa', ibus=30, color='clara turbia', sabor='fruity', ingrediente_adicional='fruit')
-    cerveza4 = Cerveza(nombre='Spectra', marca='Principia',porcentaje_alcohol=6.7, estilo='ipa', ibus=60, color='clara dorada', sabor='citric', ingrediente_adicional='none')
-    cerveza5 = Cerveza(nombre='Asimetria', marca='Principia',porcentaje_alcohol=5.5, estilo='stout', ibus=20, color='obscura', sabor=['caramel','toasted'], ingrediente_adicional='peanut_butter')
-    cerveza6 = Cerveza(nombre='Craft Pilsner', marca='Principia',porcentaje_alcohol=4.1, estilo='pilsner', ibus=27, color='clara', sabor='citric', ingrediente_adicional='fruit')
-    cerveza7 = Cerveza(nombre='Lunada', marca='De la Costa',porcentaje_alcohol=5.0, estilo='dunkel', ibus=23, color='obscura', sabor='toasted', ingrediente_adicional='chocolate')
-    cerveza8 = Cerveza(nombre='Bahia', marca='De la Costa',porcentaje_alcohol=3.8, estilo='lager', ibus=14, color='muy clara', sabor='light_and_refreshing', ingrediente_adicional='none')
-    cerveza9 = Cerveza(nombre='Harry Polanco', marca='Wendlandt',porcentaje_alcohol=5.5, estilo='red_ale', ibus=50, color='rojiza', sabor=['caramel','toasted'], ingrediente_adicional='none')
-    cerveza10 = Cerveza(nombre='Perro del mar', marca='Wendlandt',porcentaje_alcohol=7.0, estilo='ipa', ibus=60, color='clara', sabor='intense_bitter', ingrediente_adicional='none')
-    cerveza11 = Cerveza(nombre='Foca parlante', marca='Wendlandt',porcentaje_alcohol=5.5, estilo='stout', ibus=38, color='obscura', sabor='toasted', ingrediente_adicional=['coffee','chocolate'])
-    cerveza12 = Cerveza(nombre='Vaquita marina', marca='Wendlandt',porcentaje_alcohol=5.2, estilo='pale_ale', ibus=42, color='clara', sabor='citric', ingrediente_adicional='none')
-    cerveza13 = Cerveza(nombre='Veraniega', marca='Wendlandt',porcentaje_alcohol=4.7, estilo='pale_ale', ibus=20, color='muy clara', sabor='light_and_refreshing', ingrediente_adicional='none')
-    cerveza14 = Cerveza(nombre='Frambuesa', marca='Stiegl',porcentaje_alcohol=2.0, estilo='lager_frutal', ibus=8, color='clara', sabor='fruity', ingrediente_adicional='fruit')
-    cerveza15 = Cerveza(nombre='Toronja',marca='Stiegl',porcentaje_alcohol=2.0, estilo='lager_frutal', ibus=8, color='clara', sabor='fruity', ingrediente_adicional='fruit')
-    cerveza16 = Cerveza(nombre='Limon', marca='Stiegl',porcentaje_alcohol=2.0, estilo='lager_frutal', ibus=8, color='clara', sabor='light_and_refreshing', ingrediente_adicional='fruit')
-    cerveza17 = Cerveza(nombre='Lagrimas negras', marca='Ramuri',porcentaje_alcohol=10.0, estilo='imperial_cacao_stout', ibus=34, color='muy obscura', sabor='toasted', ingrediente_adicional='chocolate')
-    cerveza18 = Cerveza(nombre='Lagrimas de cacahuate', marca='Ramuri',porcentaje_alcohol=8.0, estilo='imperial_cacao_stout', ibus=38, color='muy obscura', sabor='none', ingrediente_adicional='peanut_butter')
-    cerveza19 = Cerveza(nombre='Odin', marca='Ramuri', porcentaje_alcohol=9.3, estilo='imperial_coffee_stout', ibus=74, color='muy obscura', sabor='none', ingrediente_adicional='coffee')
-    cerveza20 = Cerveza(nombre='Estrella Galicia', marca='Estrella de Galicia',porcentaje_alcohol=5.5, estilo='helles_export_bierr',ibus=25, color='dorado', sabor='light_and_refreshing', ingrediente_adicional='none')
-    cerveza21 = Cerveza(nombre='Spring IPA', marca='19 Norte',porcentaje_alcohol=7.5, estilo='ipa', ibus=60, color='clara', sabor='caramel', ingrediente_adicional='none')
-    cerveza22 = Cerveza(nombre='Dakota Stout', marca='19 Norte',porcentaje_alcohol=7.8, estilo='stout', ibus=40, color='obscura', sabor='none', ingrediente_adicional=['coffee','chocolate'])
-    cerveza23 = Cerveza(nombre='Summer Daze', marca='19 Norte',porcentaje_alcohol=6, estilo='wheat_ale', ibus=29, color='clara', sabor='citric', ingrediente_adicional='fruit')
-    cerveza24 = Cerveza(nombre='Latin Lager', marca='19 Norte',porcentaje_alcohol=5.5, estilo='lager', ibus=40, color='clara', sabor='light_and_refreshing', ingrediente_adicional='none')
-    cerveza25 = Cerveza(nombre='caramel Brown', marca='19 Norte',porcentaje_alcohol=7.6, estilo='brown_ale', ibus=22, color='caramel', sabor='caramel', ingrediente_adicional='chocolate')
-    cerveza26 = Cerveza(nombre='Porter', marca='Xinampa',porcentaje_alcohol=6, estilo='porter', ibus=45, color='obscura', sabor='toasted', ingrediente_adicional='none')
-    cerveza27 = Cerveza(nombre='Amber Ale', marca='Xinampa',porcentaje_alcohol=5.5, estilo='amber_ale', ibus=40, color='clara', sabor=['caramel','citric'], ingrediente_adicional='none')
-    cerveza28 = Cerveza(nombre='Pale Ale', marca='Xinampa',porcentaje_alcohol=5.5, estilo='pale_ale', ibus=40, color='clara', sabor='none', ingrediente_adicional='none')
+    # Crea sabores y agrégales a la base de datos
+    sabores_data = ["Dulce", "Amargo", "Ácido", "Afrutado", "Caramelo", "Especiado"]
+    sabores = []
+    for sabor_nombre in sabores_data:
+        sabor = Sabor.query.filter_by(nombre=sabor_nombre).first()
+        if not sabor:
+            sabor = Sabor(nombre=sabor_nombre)
+            db.session.add(sabor)
+        sabores.append(sabor)
+    
+    db.session.commit()
+    
+    # Crea cervezas y agrégales a la base de datos
+    cervezas_data = [
+        {
+            "nombre":"Dark Lager",
+            "marca":"Principia",
+            "porcentaje_alcohol":4.0,
+            "estilo":"lager",
+            "ibus":22,
+            "color":"obscura",
+            "sabor":['caramel','toasted'],
+            "ingrediente_adicional":"coffee"
+        },
+        {
+            "nombre":"American Wheat Ale",
+            "marca":"Principia",
+            "porcentaje_alcohol":4.3,
+            "estilo":"wheat_ale",
+            "ibus":18,
+            "color":"clara",
+            "sabor":"light_and_refreshing",
+            "ingrediente_adicional":"none"
+        },
+        {
+            "nombre":"Extrasolar", 
+            "marca":"Principia",
+            "porcentaje_alcohol":6.5, 
+            "estilo":"ipa", 
+            "ibus":30, 
+            "color":"clara turbia", 
+            "sabor":"fruity", 
+            "ingrediente_adicional":"fruit"
+        },
+        {
+            "nombre":"Spectra", 
+            "marca":"Principia",
+            "porcentaje_alcohol":6.7, 
+            "estilo":"ipa", 
+            "ibus":60, 
+            "color":"clara dorada", 
+            "sabor":"citric", 
+            "ingrediente_adicional":"none"
+        },
+        {
+            "nombre":"Asimetria", 
+            "marca":"Principia",
+            "porcentaje_alcohol":5.5, 
+            "estilo":"stout", 
+            "ibus":20, 
+            "color":"obscura", 
+            "sabor":['caramel','toasted'], 
+            "ingrediente_adicional":"peanut_butter"   
+        },
+        {
+            "nombre":"Craft Pilsner", 
+            "marca":"Principia",
+            "porcentaje_alcohol":4.1, 
+            "estilo":"pilsner", 
+            "ibus":27, 
+            "color":"clara", 
+            "sabor":"citric", 
+            "ingrediente_adicional":"fruit"    
+        },
+        {
+            "nombre":"Lunada", 
+            "marca":"De la Costa",
+            "porcentaje_alcohol":5.0, 
+            "estilo":"dunkel", 
+            "ibus":23, 
+            "color":"obscura", 
+            "sabor":"toasted", 
+            "ingrediente_adicional":"chocolate"  
+        },
+        {
+            "nombre":"Bahia", 
+            "marca":"De la Costa",
+            "porcentaje_alcohol":3.8, 
+            "estilo":"lager", 
+            "ibus":14, 
+            "color":"muy clara", 
+            "sabor":"light_and_refreshing", 
+            "ingrediente_adicional":"none"  
+        },
+        {
+            "nombre":"Harry Polanco", 
+            "marca":"Wendlandt",
+            "porcentaje_alcohol":5.5, 
+            "estilo":"red_ale", 
+            "ibus":50, 
+            "color":"rojiza", 
+            "sabor":['caramel','toasted'], 
+            "ingrediente_adicional":"none"  
+        },
+        {
+            "nombre":"Perro del mar", 
+            "marca":"Wendlandt",
+            "porcentaje_alcohol":7.0, 
+            "estilo":"ipa", 
+            "ibus":60, 
+            "color":"clara", 
+            "sabor":"intense_bitter", 
+            "ingrediente_adicional":"none"   
+        },
+        {
+            "nombre":"Foca parlante", 
+            "marca":"Wendlandt",
+            "porcentaje_alcohol":5.5, 
+            "estilo":"stout", 
+            "ibus":38, 
+            "color":"obscura", 
+            "sabor":"toasted", 
+            "ingrediente_adicional":['coffee','chocolate'] 
+        },
+        {
+            "nombre":"Vaquita marina",
+            "marca":"Wendlandt",
+            "porcentaje_alcohol":5.2, 
+            "estilo":"pale_ale", 
+            "ibus":42, 
+            "color":"clara", 
+            "sabor":"citric", 
+            "ingrediente_adicional":"none" 
+        },
+        {
+            "nombre":"Veraniega", 
+            "marca":"Wendlandt",
+            "porcentaje_alcohol":4.7, 
+            "estilo":"pale_ale", 
+            "ibus":20, 
+            "color":"muy clara", 
+            "sabor":"light_and_refreshing", 
+            "ingrediente_adicional":"none"
+        },
+        {
+            "nombre":"Frambuesa", 
+            "marca":"Stiegl",
+            "porcentaje_alcohol":2.0, 
+            "estilo":"lager_frutal", 
+            "ibus":8, 
+            "color":"clara", 
+            "sabor":"fruity", 
+            "ingrediente_adicional":"fruit"
+        },
+        {
+            "nombre":"Toronja",
+            "marca":"Stiegl",
+            "porcentaje_alcohol":2.0, 
+            "estilo":"lager_frutal", 
+            "ibus":8, 
+            "color":"clara", 
+            "sabor":"fruity", 
+            "ingrediente_adicional":"fruit"
+        },
+        {
+            "nombre":"Limon", 
+            "marca":"Stiegl",
+            "porcentaje_alcohol":2.0, 
+            "estilo":"lager_frutal", 
+            "ibus":8, 
+            "color":"clara", 
+            "sabor":"light_and_refreshing", 
+            "ingrediente_adicional":"fruit"
+        },
+        {
+            "nombre":"Lagrimas negras", 
+            "marca":"Ramuri",
+            "porcentaje_alcohol":10.0, 
+            "estilo":"imperial_cacao_stout", 
+            "ibus":34, 
+            "color":"muy obscura", 
+            "sabor":"toasted", 
+            "ingrediente_adicional":"chocolate"
+        },
+        {
+            "nombre":"Lagrimas de cacahuate", 
+            "marca":"Ramuri",
+            "porcentaje_alcohol":8.0, 
+            "estilo":"imperial_cacao_stout", 
+            "ibus":38, 
+            "color":"muy obscura", 
+            "sabor":"none", 
+            "ingrediente_adicional":"peanut_butter"
+        },
+        {
+            "nombre":"Odin", 
+            "marca":"Ramuri", 
+            "porcentaje_alcohol":9.3, 
+            "estilo":"imperial_coffee_stout", 
+            "ibus":74, 
+            "color":"muy obscura", 
+            "sabor":"none", 
+            "ingrediente_adicional":"coffee"
+        },
+        {
+            "nombre":"Estrella Galicia", 
+            "marca":"Estrella de Galicia",
+            "porcentaje_alcohol":5.5, 
+            "estilo":"helles_export_bierr",
+            "ibus":25, 
+            "color":"dorado", 
+            "sabor":"light_and_refreshing", 
+            "ingrediente_adicional":"none"
+        },
+        {
+            "nombre":"Spring IPA", 
+            "marca":"19 Norte",
+            "porcentaje_alcohol":7.5, 
+            "estilo":"ipa", 
+            "ibus":60, 
+            "color":"clara", 
+            "sabor":"caramel", 
+            "ingrediente_adicional":"none"
+        },
+        {
+            "nombre":"Dakota Stout", 
+            "marca":"19 Norte",
+            "porcentaje_alcohol":7.8, 
+            "estilo":"stout", 
+            "ibus":40, 
+            "color":"obscura", 
+            "sabor":"none", 
+            "ingrediente_adicional":['coffee','chocolate']
+        },
+        {
+            "nombre":"Summer Daze", 
+            "marca":"19 Norte",
+            "porcentaje_alcohol":6, 
+            "estilo":'wheat_ale', 
+            "ibus":29, 
+            "color":"clara", 
+            "sabor":"citric", 
+            "ingrediente_adicional":"fruit"
+        },
+        {
+            "nombre":"Latin Lager", 
+            "marca":"19 Norte",
+            "porcentaje_alcohol":5.5, 
+            "estilo":"lager", 
+            "ibus":40, 
+            "color":"clara", 
+            "sabor":"light_and_refreshing", 
+            "ingrediente_adicional":"none"
+        },
+        {
+            "nombre":"caramel Brown", 
+            "marca":"19 Norte",
+            "porcentaje_alcohol":7.6, 
+            "estilo":"brown_ale", 
+            "ibus":22, 
+            "color":"caramel", 
+            "sabor":"caramel", 
+            "ingrediente_adicional":"chocolate"
+        },
+        {
+            "nombre":"Porter", 
+            "marca":"Xinampa",
+            "porcentaje_alcohol":6, 
+            "estilo":"porter", 
+            "ibus":45, 
+            "color":"obscura", 
+            "sabor":"toasted", 
+            "ingrediente_adicional":"none"
+        },
+        {
+            "nombre":"Amber Ale", 
+            "marca":"Xinampa",
+            "porcentaje_alcohol":5.5, 
+            "estilo":"amber_ale", 
+            "ibus":40, 
+            "color":"clara", 
+            "sabor":['caramel','citric'], 
+            "ingrediente_adicional":"none"
+        },
+        {
+            "nombre":"Pale Ale", 
+            "marca":"Xinampa",
+            "porcentaje_alcohol":5.5, 
+            "estilo":"pale_ale", 
+            "ibus":40, 
+            "color":"clara", 
+            "sabor":"none", 
+            "ingrediente_adicional":"none"
+        }
+    ]
 
-    db.session.add(cerveza1)
-    db.session.add(cerveza2)
-    db.session.add(cerveza3)
-    db.session.add(cerveza4)
-    db.session.add(cerveza5)
-    db.session.add(cerveza6)
-    db.session.add(cerveza7)
-    db.session.add(cerveza8)
-    db.session.add(cerveza9)
-    db.session.add(cerveza10)
-    db.session.add(cerveza11)
-    db.session.add(cerveza12)
-    db.session.add(cerveza13)
-    db.session.add(cerveza14)
-    db.session.add(cerveza15)
-    db.session.add(cerveza16)
-    db.session.add(cerveza17)
-    db.session.add(cerveza18)
-    db.session.add(cerveza19)
-    db.session.add(cerveza20)
-    db.session.add(cerveza21)
-    db.session.add(cerveza22)
-    db.session.add(cerveza23)
-    db.session.add(cerveza24)
-    db.session.add(cerveza25)
-    db.session.add(cerveza26)
-    db.session.add(cerveza27)
-    db.session.add(cerveza28)
 
+    for cerveza_data in cervezas_data:
+        sabores_cerveza = []
+        for sabor_nombre in cerveza_data.pop("sabores", []):
+            sabor = Sabor.query.filter_by(nombre=sabor_nombre).first()
+            if sabor:
+                sabores_cerveza.append(sabor)
+        cerveza = Cerveza(**cerveza_data)
+        cerveza.sabores = sabores_cerveza
+        db.session.add(cerveza)
+    
     db.session.commit()
 
 if __name__ == "__main__":
-    from app import create_app
-
-    app = create_app()
-    with app.app_context():
-        agregar_cervezas()
+    agregar_cervezas()

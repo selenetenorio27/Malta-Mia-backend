@@ -12,6 +12,7 @@ class Cerveza(db.Model):
     ingrediente_adicional = db.Column(db.String)
 
     favoritos = db.relationship('Favoritos',back_populates='cerveza')
+    sabores = db.relationship('Sabor', secondary='cerveza_sabor', back_populates='cervezas')
 
     def to_dict(self):
         cerveza_dict = {
