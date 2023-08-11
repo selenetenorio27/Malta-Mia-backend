@@ -18,7 +18,7 @@ def get_cliente_favoritos(cliente_id):
     return jsonify(favoritos_response), 200
 
 
-
+@clientes_bp.route("/<cliente_id>/favoritos", methods=["POST"])
 def add_favorito(cliente_id):
     cliente = validate_model(Cliente, cliente_id)
     
