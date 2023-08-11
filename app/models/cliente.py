@@ -1,7 +1,7 @@
 from app import db
 
 class Cliente(db.Model):
-    cliente_id = db.Column(db.Integer, primary_key=True)
+    cliente_id = db.Column(db.String, primary_key=True)
     nombre = db.Column(db.String)
     user_name = db.Column(db.String)
     password = db.Column(db.String)
