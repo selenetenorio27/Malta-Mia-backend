@@ -31,6 +31,8 @@ def create_app():
 
     from .routes.cerveza_routes import cervezas_bp
     app.register_blueprint(cervezas_bp)
+    from .routes.favorito_routes import favoritos_bp
+    app.register_blueprint(favoritos_bp)
 
     CORS(app)
     return app
