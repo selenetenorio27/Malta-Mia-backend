@@ -31,7 +31,6 @@ def complete_encuesta():
 
 @encuesta_bp.route("/<cliente_id>/<encuesta_id>", methods=["GET"])
 def get_encuesta(cliente_id, encuesta_id):
-    cliente = validate_model(Cliente, cliente_id)
     encuesta = Encuesta.query.filter_by(cliente_id=cliente_id, encuesta_id=encuesta_id).first()
     
     if not encuesta:
