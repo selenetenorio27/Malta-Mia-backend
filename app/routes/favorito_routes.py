@@ -8,12 +8,18 @@ favoritos_bp = Blueprint("favoritos_bp", __name__, url_prefix="/favoritos")
 
 @favoritos_bp.route("/<cliente_id>", methods=["GET"])
 def get_cliente_favoritos(cliente_id):
-
     favoritos_response = []
-    for favorito in cliente_id.favoritos:
-        favoritos_response.append(favorito.cerveza.to_dict())
+
+    try:
+        favoritos = Favoritos.query.filter_by(cliente_id=cliente_id).all()
+
+        for favorito in favoritos:
+            favoritos_response.append(favorito.cerveza.to_dict())
+        
+        return jsonify(favoritos_response), 200
+    except Exception as e:
+        return jsonify({'error': 'Error fetching favorite beers: ' + str(e)}), 500
     
-    return jsonify(favoritos_response), 200
 
 
 @favoritos_bp.route("", methods=["POST"])
