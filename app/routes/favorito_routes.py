@@ -28,6 +28,12 @@ def add_favorite():
     cliente_id = data.get('cliente_id')
     cerveza_id = data.get('cerveza_id')
 
+    # Check if the beer is already a favorite for the user
+    existing_favorite = Favoritos.query.filter_by(cliente_id=cliente_id, cerveza_id=cerveza_id).first()
+
+    if existing_favorite:
+        return jsonify({'message': 'Cerveza is already a favorite'}), 200
+
     favorito = Favoritos(cliente_id=cliente_id, cerveza_id=cerveza_id)
 
     try:
@@ -37,3 +43,20 @@ def add_favorite():
     except Exception as e:
         db.session.rollback()
         return jsonify({'error': 'Error al agregar la cerveza a favoritos: ' + str(e)}), 500
+    
+
+
+@favoritos_bp.route("/<cliente_id>/<cerveza_id>", methods=["DELETE"])
+def remove_favorite(cliente_id, cerveza_id):
+    favorito = Favoritos.query.filter_by(cliente_id=cliente_id, cerveza_id=cerveza_id).first()
+
+    if favorito:
+        try:
+            db.session.delete(favorito)
+            db.session.commit()
+            return jsonify({'message': 'Cerveza removed from favorites'}), 200
+        except Exception as e:
+            db.session.rollback()
+            return jsonify({'error': 'Error removing the beer from favorites: ' + str(e)}), 500
+    else:
+        return jsonify({'message': 'Cerveza is not in favorites'}), 200
