@@ -19,7 +19,7 @@ def validate_model(cls, model_id):
 
 @encuesta_bp.route("", methods=["POST"])
 def complete_encuesta():
-    data = request.json
+    data = request.json  
     cliente_id = data.get('cliente_id')
     #Aqui se guardara las respuestas de la encuesta en la bd relacionado con el cliente_id
     new_encuesta = Encuesta(cliente_id=cliente_id)
@@ -29,12 +29,14 @@ def complete_encuesta():
 
 
 
-@encuesta_bp.route("/<cliente_id>/<encuesta_id>", methods=["GET"])
-def get_encuesta(cliente_id, encuesta_id):
-    encuesta = Encuesta.query.filter_by(cliente_id=cliente_id, encuesta_id=encuesta_id).first()
+# @encuesta_bp.route("/<cliente_id>/<encuesta_id>", methods=["GET"])
+# def get_encuesta(cliente_id, encuesta_id):
+#     encuesta = Encuesta.query.filter_by(cliente_id=cliente_id, encuesta_id=encuesta_id).first()
     
-    if not encuesta:
-        abort(make_response({"message": "Encuesta not found"}, 404))
+#     if not encuesta:
+#         abort(make_response({"message": "Encuesta not found"}, 404))
     
-    return jsonify(encuesta.to_dict()), 200
+#     return jsonify(encuesta.to_dict()), 200
+
+
 

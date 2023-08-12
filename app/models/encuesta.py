@@ -13,8 +13,6 @@ class Encuesta(db.Model):
     cliente_id = db.Column(db.String)
     
 
-    cliente = db.relationship('Cliente', back_populates='encuestas')
-
 
 
     def to_dict(self):
