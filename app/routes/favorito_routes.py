@@ -32,4 +32,4 @@ def add_favorite():
         return jsonify({'message': 'Cerveza agregada a favoritos'}), 201
     except Exception as e:
         db.session.rollback()
-        return jsonify({'error': 'Error al agregar la cerveza a favoritos'}), 500
+        return jsonify({'error': 'Error al agregar la cerveza a favoritos: ' + e}), 500
