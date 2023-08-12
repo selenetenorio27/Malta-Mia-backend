@@ -8,10 +8,9 @@ favoritos_bp = Blueprint("favoritos_bp", __name__, url_prefix="/favoritos")
 
 @favoritos_bp.route("/<cliente_id>", methods=["GET"])
 def get_cliente_favoritos(cliente_id):
-    cliente = validate_model(Cliente, cliente_id)
-    
+
     favoritos_response = []
-    for favorito in cliente.favoritos:
+    for favorito in cliente_id.favoritos:
         favoritos_response.append(favorito.cerveza.to_dict())
     
     return jsonify(favoritos_response), 200
