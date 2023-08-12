@@ -10,14 +10,12 @@ class Encuesta(db.Model):
     pref_alcohol = db.Column(db.Integer)
     ingrediente_adic = db.Column(db.String)
     completed_at = db.Column(db.DateTime, default=None)
-
-    # cerveza_id = db.Column(db.Integer, db.ForeignKey('cerveza.cerveza_id'))
-    cliente_id = db.Column(db.String, db.ForeignKey('cliente.cliente_id'))
+    cliente_id = db.Column(db.String)
+    
 
     cliente = db.relationship('Cliente', back_populates='encuestas')
-    # cerveza = db.relationship('Cerveza', back_populates='encuesta')
 
-#falta fecha 
+
 
     def to_dict(self):
         encuesta_dict = {
@@ -28,7 +26,8 @@ class Encuesta(db.Model):
             "pref_sabor" : self.pref_sabor,
             "pref_alcohol" : self.pref_alcohol,
             "ingrediente_adic" : self.ingrediente_adic,
-            "completed_at" : self.completed_at
+            "completed_at" : self.completed_at,
+            "cliente_id" : self.cliente_id
         }
 
         return encuesta_dict

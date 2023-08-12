@@ -1,6 +1,5 @@
 from flask import Blueprint, request, jsonify, make_response, abort
 from app import db
-from app.models.cliente import Cliente
 from app.models.favoritos import Favoritos
 from app.models.cerveza import Cerveza
 from app.routes.cerveza_routes import validate_model
@@ -32,4 +31,4 @@ def add_favorite():
         return jsonify({'message': 'Cerveza agregada a favoritos'}), 201
     except Exception as e:
         db.session.rollback()
-        return jsonify({'error': 'Error al agregar la cerveza a favoritos: ' + e}), 500
+        return jsonify({'error': 'Error al agregar la cerveza a favoritos: ' + str(e)}), 500
